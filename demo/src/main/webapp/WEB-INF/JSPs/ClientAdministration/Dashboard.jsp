@@ -106,7 +106,23 @@
 
     <section class="attendance">
       <div class="attendance-list">
-        <h1>List des clients</h1>
+        <div style="display: flex; display: justify-content: space-between;">
+          <div> <h1>List des clients</h1></div>
+        <div class="search">
+          <form action="/dashboard" method="get">
+            <input type="hidden" name="action" value="searchClient">
+            <input type="text"
+                   placeholder=" Search Courses"
+                   name="name">
+            <button>
+              <i class="fa fa-search"
+                 style="font-size: 18px;">
+              </i>
+            </button>
+          </form>
+        </div>
+
+        </div>
         <table class="table">
           <thead>
           <tr>

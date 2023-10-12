@@ -38,11 +38,23 @@ public class AllClientsServlet extends HttpServlet {
             request.setAttribute("employes", employeService.AllEmployes());
             request.setAttribute("clientTrouvee", clientService.chercher(clientCode));
             request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/UpdateClient.jsp").forward(request, response);
+        } else if ("searchClient".equals(action2)){
+            String clientName = request.getParameter("name");
+           Client client = clientService.chercher(clientName);
+            if (client != null) {
+                request.setAttribute("client", client);
+                request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/GetAllClients.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/dashboard?successMessage=Le+client+introuvable.");
+            }
+
         } else {
             request.setAttribute("clients", clientService.AllClients());
             request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/Dashboard.jsp").forward(request, response);
         }
     }
+
+
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -73,7 +85,6 @@ public class AllClientsServlet extends HttpServlet {
                 request.setAttribute("errorMessage", "Données du formulaire incorrectes.");
                 request.getRequestDispatcher("/WEB-INF/JSPs/erreur.jsp").forward(request, response);}
 
-
             LocalDate dateNaissance = LocalDate.parse(dateNaissanceStr);
             String matricule = request.getParameter("matricule");
             // Création d'un nouvel objet Client
@@ -103,7 +114,6 @@ public class AllClientsServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/JSPs/erreur.jsp").forward(request, response);
             }
         }else if ("savechangesClient".equals(action)) {
-
             String fullName2 = request.getParameter("fullName");
             String code = request.getParameter("code");
             String username2 = request.getParameter("username");
@@ -117,7 +127,9 @@ public class AllClientsServlet extends HttpServlet {
             }else{
                 response.sendRedirect(request.getContextPath() + "/dashboard?errorMessage=error+dans+la+modification+du+client.");
             }
+        }
     }
-    }
+
+
 }
 

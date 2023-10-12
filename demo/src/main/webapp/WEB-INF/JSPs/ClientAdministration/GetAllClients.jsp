@@ -1,75 +1,182 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JSP - Hello World</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>Attendance Dashboard | By Code Info</title>
+    <link rel="stylesheet"  href="../../../Css/DashboardPage.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 
+    <!-- Font Awesome Cdn Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 </head>
-
-<!-- component -->
 <body>
-<header>
-    <nav class="bg-gray-700">
-        <div class="container mx-auto py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-gray-50">EasyBank</h1>
+<div class="container">
+    <nav>
+        <ul>
+            <li><a href="/" class="logo">
+                <img src="../../../Images/admin.png">
+                <span class="nav-item">EasyBank</span>
+            </a></li>
+            <li><a href="#">
+                <i class="fas fa-menorah"></i>
+                <span class="nav-item">Dashboard</span>
+            </a></li>
+            <li><a href="#">
+                <i class="fas fa-comment"></i>
+                <span class="nav-item">Message</span>
+            </a></li>
+            <li><a href="#">
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Report</span>
+            </a></li>
+            <li><a href="#">
+                <i class="fas fa-chart-bar"></i>
+                <span class="nav-item">Attendance</span>
+            </a></li>
+            <li><a href="#">
+                <i class="fas fa-cog"></i>
+                <span class="nav-item">Setting</span>
+            </a></li>
 
-            <div class="flex space-x-10">
-                <i  class="cursor-pointer">
-                    <div class="flex items-center space-x-2">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                        </svg>
-                    </span>
-                        <span class="text-gray-50">Espace Employe</span>
-                    </div>
-                </i>
-                <i class="cursor-pointer">
-                    <div class="flex items-center space-x-2">
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </span>
-                        <span class="text-gray-50">Espace Client</span>
-                    </div></i>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="lg:flex hidden items-center space-x-2 bg-white py-1 px-2 rounded-full">
-          <span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </span>
-                <input class="outline-none" type="text" placeholder="Search" />
-            </div>
-        </div>
+            <li><a href="#" class="logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="nav-item">Log out</span>
+            </a></li>
+        </ul>
     </nav>
 
 
+    <section class="main">
+        <div class="main-top">
+            <h1>Dashboard</h1>
+            <%-- Affichez le message de succès --%>
+            <c:if test="${not empty param.successMessage}">
+                <div class="alert alert-success">${param.successMessage}</div>
+            </c:if>
+
+            <c:if test="${not empty param.errorMessage}">
+                <div class="alert alert-danger">${param.errorMessage}</div>
+            </c:if>
 
 
-    <script type="module" src="/main.js"></script>
-</header>
+            <i class="fas fa-user-cog"></i>
+        </div>
+        <div class="users">
+            <div class="card">
+                <img src="../../../Images/client.png">
+                <h4>Clients</h4>
+                <p>Progammer</p>
+                <div class="per">
+                    <table>
+
+                    </table>
+                </div>
+                <a style="padding: 6px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid #ff7808;
+            width: 100%;
+            margin-top: 8px;
+            padding: 7px;
+            cursor: pointer;
+            border-radius: 10px;
+            background: transparent;
+            border: 1px solid #ff7808;
+            transition: background 0.3s, color 0.3s;" href="/new-client">Ajouter Client</a>
+            </div>
+            <div class="card">
+                <img style="width: 15%" src="../../../Images/equipe.png">
+                <h4>Employes</h4>
+                <p>Ui designer</p>
+                <div class="per">
+                    <table>
+
+
+                    </table>
+                </div>
+                <button>Ajouter Employe</button>
+            </div>
+
+
+        </div>
+
+        <section class="attendance">
+            <div class="attendance-list">
+                <div style="display: flex; display: justify-content: space-between;">
+                    <div> <h1>List des clients</h1></div>
+                    <div style="    margin-top: 1%;
+    margin-left: 67%;" class="search">
+                        <form action="/dashboard" method="get">
+                            <input type="hidden" name="action" value="searchClient">
+                            <input type="text"
+                                   placeholder=" Search Courses"
+                                   name="name">
+                            <button>
+                                <i class="fa fa-search"
+                                   style="font-size: 18px;">
+                                </i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Date de naissance</th>
+                        <th>Telephone</th>
+                        <th>Adresse</th>
+                        <th>delete</th>
+                        <th>update</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>${client.code}</td>
+                            <td>${client.nom}</td>
+                            <td>${client.prenom}</td>
+                            <td>${client.dateNaissance}</td>
+                            <td>${client.telephone}</td> <!-- Utilisez "telephone" au lieu de "heureOuverture" -->
+                            <td>${client.adresse}</td> <!-- Utilisez "adresse" au lieu de "heureFermeture" -->
+                            <td>
+
+                                <form method="post" action="deleteClient">
+                                    <input type="hidden" name="action" value="deleteClient">
+                                    <input type="hidden" name="clientCode" value="${client.code}">
+                                    <button type="submit">delete</button>
+                                </form>
+
+                            </td>
+                            <td>
+                                <form method="GET" action="updateClient">
+                                    <input type="hidden" name="action" value="updateClient">
+                                    <input type="hidden" name="clientCode" value="${client.code}">
+                                    <button type="submit">update</button>
+                                </form>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+</div>
+<script>
+    document.getElementById('ajouterClientButton').addEventListener('click', function() {
+        window.location.href = '/new-client'; // Remplacez 'AddClient.html' par le chemin de votre page AddClient
+    });
+</script>
+
+
+
 </body>
 </html>
